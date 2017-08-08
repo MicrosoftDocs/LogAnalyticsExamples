@@ -1,2 +1,2 @@
 # LogAnalyticsExamples
-Query examples using the Azure Log Analytics query language
+Query examples for the Azure Log Analytics query language
