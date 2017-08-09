@@ -1,0 +1,12 @@
+## Pie chart explicit credenetials processes
+#### #count #render #piechart
+
+The following example shows a pie chart of processes that used explicit credenetials in the last week
+```OQL
+SecurityEvent
+| where TimeGenerated > ago(7d)
+// filter by id 4648 ("A logon was attempted using explicit credentials")
+| where EventID == 4648
+| summarize count() by Process
+| render piechart 
+```
