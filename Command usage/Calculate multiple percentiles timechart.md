@@ -1,5 +1,6 @@
 ## Calculate multiple percentiles timechart
 #### #percentiles #render #timechart #bin
+<!-- article_id: 3107‎2017‏‎03827007 -->
 
 The following example calculates the 50th, 90th, and 95th percentiles of request duration, in the past 24 hours:
 

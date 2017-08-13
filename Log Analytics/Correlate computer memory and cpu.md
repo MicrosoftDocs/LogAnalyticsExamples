@@ -1,5 +1,6 @@
 ## Join computer perf records to corrolate memory and cpu
 #### #let #datetime #project #join #inner #avg #max
+<!-- article_id: 3107‎2017‏‎03827015 -->
 
 This example correlates a given computer's perf records, and creates 2 time charts: the average CPU and maximum memory, in 30-minute bins.
 

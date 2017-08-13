@@ -1,5 +1,6 @@
 ## Bar chart unstacked
 #### #count #render #barchart #unstacked
+<!-- article_id: 3107‎2017‏‎03827008 -->
 
 The following example count alerts severity, per day, and creates a bar chart 
 ```OQL

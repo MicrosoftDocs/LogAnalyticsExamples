@@ -1,5 +1,6 @@
 ## Find stale computers
 #### #max #isnotempty
+<!-- article_id: 3107‎2017‏‎03827020 -->
 
 The following example finds computers that were active in the last day but did not send heartbeats in the last hour.
 

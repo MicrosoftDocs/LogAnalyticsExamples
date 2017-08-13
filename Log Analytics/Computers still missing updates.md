@@ -1,5 +1,6 @@
 ## Computers Still Missing Updates
 #### #makeset #let #dcount #in
+<!-- article_id: 3107‎2017‏‎03827012 -->
 
 The following example shows a list of Computers that were missing one or more critical updates a few days ago and are still missing updates.
 ```OQL

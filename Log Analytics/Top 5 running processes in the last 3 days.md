@@ -1,5 +1,6 @@
 ## Top 5 running processes in the last 3 days
 #### #let #count #render #timechart #in
+<!-- article_id: 3107‎2017‏‎03827031 -->
 
 The following example shows a pie chart of processes that used explicit credenetials in the last week
 ```OQL

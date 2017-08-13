@@ -1,5 +1,6 @@
 ## Inner join: find exception related to failed requests
 #### #join #project #bin #round
+<!-- article_id: 3107‎2017‏‎03827009 -->
 
 This example finds which exceptions are related to failed requests in the past 24 hours.
 

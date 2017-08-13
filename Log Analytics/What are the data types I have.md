@@ -1,5 +1,6 @@
 ## What are the data types I have
 #### #search #count #barchart
+<!-- article_id: 3107‎2017‏‎03827033 -->
 
 The following example search everything reported in the last hour and counts the records of each table using the system column $table.
 The results are displayed in a bar chart.

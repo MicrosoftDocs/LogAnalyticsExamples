@@ -1,5 +1,6 @@
 ## Pie chart explicit credenetials processes
 #### #count #render #piechart
+<!-- article_id: 3107‎2017‏‎03827027 -->
 
 The following example shows a pie chart of processes that used explicit credenetials in the last week
 ```OQL

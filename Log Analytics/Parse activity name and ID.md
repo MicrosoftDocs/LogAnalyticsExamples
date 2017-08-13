@@ -1,5 +1,6 @@
 ## Parse activity name and ID
 #### #project #parse #split
+<!-- article_id: 3107‎2017‏‎03827025 -->
 
 The 2 examples below rely on the fixed structure of the Activity column: <ID>-<Name>.
 
