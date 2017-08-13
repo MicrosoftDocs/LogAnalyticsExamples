@@ -1,4 +1,4 @@
-# Azure Log Analytics Docs
+# Azure Log Analytics Examples
 The documentation in this repository is licensed under the Creative Commons Attribution License as found in [here](LICENSE).
 Any source code in this repository is licensed under the MIT license as found [here](LICENSE-CODE).
 
