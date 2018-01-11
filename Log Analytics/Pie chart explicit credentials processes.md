@@ -1,8 +1,8 @@
-## Pie chart explicit credenetials processes
+## Pie chart explicit credentials processes
 #### #count #render #piechart
 <!-- article_id: 3107‎2017‏‎03827027 -->
 
-The following example shows a pie chart of processes that used explicit credenetials in the last week
+The following example shows a pie chart of processes that used explicit credentials in the last week
 ```OQL
 SecurityEvent
 | where TimeGenerated > ago(7d)

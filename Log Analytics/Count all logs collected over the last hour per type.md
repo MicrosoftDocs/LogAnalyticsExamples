@@ -1,4 +1,4 @@
-## What are the data types I have
+## Count all logs collected over the last hour, per type
 #### #search #count #barchart
 <!-- article_id: 3107‎2017‏‎03827033 -->
 
