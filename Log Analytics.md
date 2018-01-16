@@ -19,6 +19,7 @@
 ##### [Chart a week-over-week view of the number of computers sending data](~/examples/Log Analytics/Chart a week-over-week view of the number of computers sending data.md)
 ##### [Find stale computers](~/examples/Log Analytics/Find stale computers.md)
 ##### [Get latest heartbeat record per computer IP](~/examples/Log Analytics/Get latest heartbeat record per computer IP.md)
+##### [Calculate computer availability rate](~/examples/Log Analytics/Calculate computer availability rate.md)
 ##### [Match protection and heartbeat records](~/examples/Log Analytics/Match protection status records with heartbeat records.md)
 
 ### Updates
@@ -34,7 +35,6 @@
 ### Perf
 ##### [Correlate computer memory and CPU](~/examples/Log Analytics/Correlate computer memory and cpu.md)
 ##### [Perf CPU Utilization graph per computer](~/examples/Log Analytics/Perf CPU Utilization graph per computer.md)
-##### [Calculate computer availability rate](~/examples/Log Analytics/Calculate computer availability rate.md)
 
 ### Alert
 ##### [Count alerts by severity per day](~/examples/Log Analytics/Count and chart alerts severity per day.md)
