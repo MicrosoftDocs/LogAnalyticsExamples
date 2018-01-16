@@ -34,6 +34,7 @@
 ### Perf
 ##### [Correlate computer memory and CPU](~/examples/Log Analytics/Correlate computer memory and cpu.md)
 ##### [Perf CPU Utilization graph per computer](~/examples/Log Analytics/Perf CPU Utilization graph per computer.md)
+##### [Calculate computer availability rate](~/examples/Log Analytics/Calculate computer availability rate.md)
 
 ### Alert
 ##### [Count alerts by severity per day](~/examples/Log Analytics/Count and chart alerts severity per day.md)
