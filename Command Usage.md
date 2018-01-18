@@ -1,7 +1,6 @@
 ## Command usage examples
-<br/>
-##### [Bar chart unstacked](~/examples/Command usage/Bar chart unstacked.md)
-##### [Pie chart top 10 items](~/examples/Command usage/Pie chart top 10 items.md)
-##### [Calculate multiple percentiles timechart](~/examples/Command usage/Calculate multiple percentiles timechart.md)
-##### [Join kind - inner](~/examples/Command usage/Join kind - inner.md)
-##### [Join - match on two fields](~/examples/Command usage/Join on two field matches.md)
+- [Bar chart unstacked](/Command_usage/Bar_chart_unstacked.md)
+- [Pie chart top 10 items](/Command_usage/Pie_chart_top_10_items.md)
+- [Calculate multiple percentiles timechart](/Command_usage/Calculate_multiple_percentiles_timechart.md)
+- [Join kind - inner](/Command_usage/Join_kind-inner.md)
+- [Join - match on two fields](/Command_usage/Join_on_two_field_matches.md)
