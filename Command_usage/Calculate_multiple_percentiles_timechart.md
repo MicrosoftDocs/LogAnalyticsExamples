@@ -12,4 +12,4 @@ requests
 ```
 
 The output will look like this:
-<p><img src="~/examples/images/percentiles.png" alt="percentiles"></p>
+![percentiles](/images/percentiles.png)
