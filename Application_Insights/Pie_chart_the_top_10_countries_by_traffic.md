@@ -13,4 +13,4 @@ requests
 ```
 
 The output will look like this:
-<p><img src="~/examples/images/top_10_countries_by_traffic.png" alt="top 10 countries by traffic"></p>
+![top 10 countries by traffic](/images/top_10_countries_by_traffic.png)
