@@ -13,7 +13,7 @@
 ### Usage
 - [Calculate the average size of perf usage reports per computer](/Log_Analytics/Calculate_the_average_size_of_perf_usage_reports_per_computer.md)
 - [Timechart latency percentiles 50 and 95](/Log_Analytics/Timechart_latency_percentiles_50_and_95.md)
-- [Usage of computer today](/Log_Analytics/Usage of computers today.md)
+- [Usage of computer today](/Log_Analytics/Usage_of_computers_today.md)
 
 ### Heartbeat
 - [Chart a week-over-week view of the number of computers sending data](/Log_Analytics/Chart_a_week-over-week_view_of_the_number_of_computers_sending_data.md)
