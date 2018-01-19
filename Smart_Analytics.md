@@ -1,6 +1,6 @@
 ## Smart Analytics - analyze application usage patterns
 <br/>
-##### [Detect disruptions with regression analysis](~/examples/Smart Analytics/automated detector for service disruptions based on app trace logs.md)
-##### [Rolling monthly active users (MAU)](~/examples/Smart Analytics/sliding window calculations - rolling MAU.md)
-##### [Measure "user stickiness"](~/examples/Smart Analytics/sliding window calculations - user stickiness.md)
-##### [Cohort analysis](~/examples/Smart Analytics/sliding window calculations - cohort analysis.md)
+- [Detect disruptions with regression analysis](/Smart_Analytics/automated_detector_for_service_disruptions_based_on_app_trace_logs.md)
+- [Rolling monthly active users (MAU)](/Smart_Analytics/sliding_window_calculations_-_rolling_MAU.md)
+- [Measure "user stickiness"](/Smart_Analytics/sliding_window_calculations_-_user_stickiness.md)
+- [Cohort analysis](/Smart_Analytics/sliding_window_calculations_-_cohort_analysis.md)
