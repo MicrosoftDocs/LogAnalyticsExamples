@@ -14,4 +14,4 @@ customEvents
 ```
 
 The output will look like this:
-<p><img src="~/examples/images/top_10_custom_events.png" alt="top 10 custom events"></p>
+![top 10 custom events](/images/top_10_custom_events.png)

@@ -83,4 +83,4 @@ week
 ```
 
 The output will look like this:
-<p><img src="~/examples/images/cohorts.png" alt="cohorts"></p>
+![cohorts](/images/cohorts.png)

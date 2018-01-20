@@ -1,6 +1,6 @@
 ## Top 10 countries by traffic
 #### #count #render #piechart
-<!-- article_id: 3107‎2017‏‎03827005 -->
+<!-- article_id: 3107‎2017‏‎03827004 -->
 
 The following example counts the number of requests received from each country (aka "traffic") in the past 24 hours. Traffic distribution from the top 10 countries is displays in a pie-chart.
 
@@ -13,4 +13,4 @@ requests
 ```
 
 The output will look like this:
-<p><img src="~/examples/images/top_10_countries_by_traffic.png" alt="top 10 countries by traffic"></p>
+![top 10 countries by traffic](/images/top_10_countries_by_traffic.png)
