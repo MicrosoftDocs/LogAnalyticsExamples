@@ -1,4 +1,4 @@
-## Appliction Insights examples
+## Application Insights examples
 <br/>
 ##### [Find exceptions that failed requests](~/examples/Application Insights/Find exceptions that failed requests.md)
 ##### [Percentiles of request duration](~/examples/Application Insights/Percentiles of request duration in the last 24 hours.md)
