@@ -2,7 +2,7 @@
 #### #bin_at #countif #hourofday
 <!-- article_id: 1601‎201803827040 -->
 
-For each computer, calculate the availability rate calculated since midnight. Availability is defined as "at least 1 heartbeat per hour".
+For each computer, calculate the availability rate since midnight. Availability is defined as "at least 1 heartbeat per hour".
 
 ```OQL
 let midnight=startofday(now());
