@@ -6,14 +6,14 @@ Calculate server availability rate based on heartbeat records. Availability is d
 So, if a server was available 98 of 100 hours, the availability rate is 98%.
 
 ```OQL
-let start_time=startofday(datetime("2017-01-01"));
-let end_time=endofday(datetime("2017-01-31"));
+let start_time=startofday(datetime("2018-03-01"));
+let end_time=now();
 Heartbeat
 | where TimeGenerated > start_time and TimeGenerated < end_time
 | summarize heartbeat_per_hour=count() by bin_at(TimeGenerated, 1h, start_time), Computer
 | extend available_per_hour=iff(heartbeat_per_hour>0, true, false)
 | summarize total_available_hours=countif(available_per_hour==true) by Computer 
-| extend total_number_of_buckets=round((end_time-start_time)/1h)
+| extend total_number_of_buckets=round((end_time-start_time)/1h)+1
 | extend availability_rate=total_available_hours*100/total_number_of_buckets
 ```
 
@@ -46,7 +46,7 @@ Instead of expecting a report every 5 or 10 minutes, we only mark a computer as 
 At this point we get a number for each computer, something like this:
 <p><img src="~/examples/images/availability_hours.png" alt="server availability hours"></p>
 
-So we know each computer was alive 11 hours in the select time range. But what does it mean? how many hours were there altogether? is this 11 out of 11 hours (100% availability) or out of 110 hours (only 10% availability)?
+So we know the number of hours each computer was available during the set time range. But what does it mean? how many hours were there altogether?
 
 Here's how we can calculate the total number of hours in the selected time range:
 ```
