@@ -21,6 +21,7 @@
 ##### [Get latest heartbeat record per computer IP](~/examples/Log Analytics/Get latest heartbeat record per computer IP.md)
 ##### [Calculate computer availability rate](~/examples/Log Analytics/Calculate computer availability rate.md)
 ##### [Match protection and heartbeat records](~/examples/Log Analytics/Match protection status records with heartbeat records.md)
+##### [Calculate availability rate for connected servers](~/examples/Log Analytics/Server availability rate.md)
 
 ### Updates
 ##### [Computers still missing updates](~/examples/Log Analytics/Computers still missing updates.md)
