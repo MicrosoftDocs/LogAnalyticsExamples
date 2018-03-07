@@ -19,7 +19,6 @@
 ##### [Chart a week-over-week view of the number of computers sending data](~/examples/Log Analytics/Chart a week-over-week view of the number of computers sending data.md)
 ##### [Find stale computers](~/examples/Log Analytics/Find stale computers.md)
 ##### [Get latest heartbeat record per computer IP](~/examples/Log Analytics/Get latest heartbeat record per computer IP.md)
-##### [Calculate computer availability rate](~/examples/Log Analytics/Calculate computer availability rate.md)
 ##### [Match protection and heartbeat records](~/examples/Log Analytics/Match protection status records with heartbeat records.md)
 ##### [Calculate availability rate for connected servers](~/examples/Log Analytics/Server availability rate.md)
 

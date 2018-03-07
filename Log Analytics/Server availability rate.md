@@ -2,8 +2,8 @@
 #### #any
 <!-- article_id: 2502‎2018‏‎03827037 -->
 
-Calculate server availability rate based on heartbeat records.
-The availability rate is defined as the % of uptime of a given server during a certain period of time. So, if a server was up 98 of a total 100 hours, the availability rate for that period is 98%.
+Calculate server availability rate based on heartbeat records. Availability is defined as "at least 1 heartbeat per hour".
+So, if a server was available 98 of 100 hours, the availability rate is 98%.
 
 ```OQL
 let start_time=startofday(datetime("2017-01-01"));
@@ -58,8 +58,8 @@ Here's how we can calculate the total number of hours in the selected time range
 Finally we calculate the ratio between available hours and total hours:
 ```
 ... | extend availability_rate=total_available_hours*100/total_number_of_buckets
-
-and get this:
 ```
+and get this:
+
 <p><img src="~/examples/images/availability_rate.png" alt="server availability rate"></p>
 
