@@ -1,5 +1,5 @@
-## server Availability rate
-#### #any
+## Server availability rate
+#### #let #bin_at #countif #round
 <!-- article_id: 2502‎2018‏‎03827037 -->
 
 Calculate server availability rate based on heartbeat records. Availability is defined as "at least 1 heartbeat per hour".
