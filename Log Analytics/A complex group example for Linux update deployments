@@ -1,0 +1,18 @@
+Update 
+| where OSType == "Linux" and UpdateState !~ "Not needed" and (Classification == "Critical Updates" or Classification == "Security Updates") 
+//to keep the group < 100 members we are partitioning on the computer name which handily begins with a 7 digit number
+//so first we use substring to chop off just the first seven characters of the compueter name - i.e. the numbers
+//then we convert the string of digits to an integer so we can do the comparison
+//and in this environment(using trial and error testing) that number will get us a group of less than 100 VMs
+| where toint(substring(Computer,0,7)) <= 9661446 
+| distinct Computer 
+//to avoid a problem caused by some VMs whose Resource property differs only in case we are going to join to a query that lists these VMs...
+//...and by doing a leftouter join we keep all the VMs that don't have a match with the different Resource cases...
+| join kind= leftouter (  Heartbeat | where OSType == "Linux" 
+                          | summarize max(TimeGenerated) by Computer, Resource 
+                          | summarize count() by Computer
+                          | where count_ > 1 )  
+       on Computer 
+//...then with the where clause below we remove the ones which did have the different Resource cases...
+       | where Computer1 == "" 
+| distinct Computer
