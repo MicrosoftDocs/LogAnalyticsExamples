@@ -1,0 +1,7 @@
+SMTPLogs_CL 
+| parse RawData with Date " " Time " " CIP " " CSUserName " " SSiteName " " SComputerName " " SIP " " SPort " " CSMethod " " CSUriStem " " csuriquery " " * 
+| where csuriquery contains "@"
+| extend recipientaddress = extract(@"<(.*)>",1,csuriquery)
+| project recipientaddress, csuriquery 
+| summarize emailsrecieved=count(csuriquery) by recipientaddress
+| sort by emailsrecieved desc 
