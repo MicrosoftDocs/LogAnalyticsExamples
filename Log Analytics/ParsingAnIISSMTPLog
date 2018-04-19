@@ -1,0 +1,2 @@
+SMTPLogs_CL 
+| parse RawData with Date " " Time " " CIP " " CSUserName " " SSiteName " " SComputerName " " SIP " " SPort " " CSMethod " " CSUriStem " " csuriquery " " scstatus " " scwin32status " " scbytes " " csbytes " " timetaken " " csversion " " cshost " " csUserAgent " " csCookie " " csReferer
