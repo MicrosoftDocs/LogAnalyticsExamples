@@ -1,4 +1,4 @@
-## Get latest heartbeat record per computer IP
+## Get the latest heartbeat record per computer IP
 #### #arg_max
 <!-- article_id: 3107‎2017‏‎03827022 -->
 

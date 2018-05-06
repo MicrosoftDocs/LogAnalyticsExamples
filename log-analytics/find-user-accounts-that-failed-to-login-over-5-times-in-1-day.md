@@ -1,4 +1,4 @@
-## Find user accounts that failed to login over 5 time in 1 day
+## Find user accounts that failed to login over 5 times in 1 day
 #### #let #join #project-away
 <!-- article_id: 3108‎2017‏‎03827034 -->
 

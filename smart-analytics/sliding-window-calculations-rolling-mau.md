@@ -60,4 +60,4 @@ customEvents
 ```
 
 The output will look like this:
-<p><img src="~/examples/images/rolling_mau.png" alt="rolling mau"></p>
+<p><img src="~/examples/images/rolling-mau.png" alt="rolling mau"></p>

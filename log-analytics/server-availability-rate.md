@@ -44,7 +44,7 @@ Note that this way we give a little leeway for missing heartbeat reports each ho
 Instead of expecting a report every 5 or 10 minutes, we only mark a computer as "unavailable" if we didn't get any report from it during a full hour.
 
 At this point we get a number for each computer, something like this:
-<p><img src="~/examples/images/availability_hours.png" alt="server availability hours"></p>
+<p><img src="~/examples/images/availability-hours.png" alt="server availability hours"></p>
 
 So we know the number of hours each computer was available during the set time range. But what does it mean? how many hours were there altogether?
 
@@ -61,5 +61,5 @@ Finally we calculate the ratio between available hours and total hours:
 ```
 and get this:
 
-<p><img src="~/examples/images/availability_rate.png" alt="server availability rate"></p>
+<p><img src="~/examples/images/availability-rate.png" alt="server availability rate"></p>
 

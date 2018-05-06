@@ -50,4 +50,4 @@ on Timestamp
 ```
 
 The output will look like this:
-<p><img src="~/examples/images/user_stickiness.png" alt="user stickiness"></p>
+<p><img src="~/examples/images/user-stickiness.png" alt="user stickiness"></p>
