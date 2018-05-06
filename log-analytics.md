@@ -19,7 +19,7 @@
 ##### [Chart a week-over-week view of the number of computers sending data](~/examples/log-analytics/chart-a-week-over-week-view-of-the-number-of-computers-sending-data.md)
 ##### [Find stale computers](~/examples/log-analytics/find-stale-computers.md)
 ##### [Get the latest heartbeat record per computer IP](~/examples/log-analytics/get-latest-heartbeat-record-per-computer-ip.md)
-##### [Match protection and heartbeat records](~/examples/log-analytics/Match protection status records with heartbeat records.md)
+##### [Match protection and heartbeat records](~/examples/log-analytics/match-protection-status-records-with-heartbeat-records.md)
 ##### [Calculate availability rate for connected servers](~/examples/log-analytics/server-availability-rate.md)
 
 ### Updates
