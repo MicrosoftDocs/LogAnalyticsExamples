@@ -14,4 +14,4 @@ customEvents
 ```
 
 The output will look like this:
-<p><img src="~/examples/images/top_10_custom_events.png" alt="top 10 custom events"></p>
+<p><img src="~/examples/images/top-10-custom-events.png" alt="top 10 custom events"></p>
