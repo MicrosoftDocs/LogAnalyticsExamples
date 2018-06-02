@@ -9,4 +9,4 @@ To contribute your own examples, first [fork this repo](https://help.github.com/
 If you submit a pull request with new or significant changes, and you are not an employee of Microsoft, we'll add a comment to the pull request asking you to submit an online [CLA](https://cla.microsoft.com) (Contribution License Agreement). We'll need you to complete the online form before we can accept your pull request.
 
 ## Redistribution
-Upon redistribuion of this repo, please be respectful of the readers and authors of this documentation, and include a link to the [original repo master branch](https://github.com/MicrosoftDocs/LogAnalyticsExamples).
+Upon redistribution of this repo, please be respectful of the readers and authors of this documentation, and include a link to the [original repo master branch](https://github.com/MicrosoftDocs/LogAnalyticsExamples).
