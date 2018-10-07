@@ -50,4 +50,4 @@ on Timestamp
 ```
 
 The output will look like this:
-<p><img src="~/examples/images/user-stickiness.png" alt="user stickiness"></p>
+![user stickiness](https://github.com/MicrosoftDocs/LogAnalyticsExamples/blob/master/images/user-stickiness.png)
