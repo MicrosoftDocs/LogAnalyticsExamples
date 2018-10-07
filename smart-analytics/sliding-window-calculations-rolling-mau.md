@@ -60,4 +60,4 @@ customEvents
 ```
 
 The output will look like this:
-<p><img src="~/examples/images/rolling-mau.png" alt="rolling mau"></p>
+![rolling mau](https://github.com/MicrosoftDocs/LogAnalyticsExamples/blob/master/images/rolling-mau.png)
