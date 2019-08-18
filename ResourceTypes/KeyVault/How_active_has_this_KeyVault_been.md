@@ -1,3 +1,4 @@
+// Author: someone@somewhere.com
 // Display name: How active has this KeyVault been?
 // Description: Line chart showing trend of KeyVault requests volume, per operation over time.
 // Category: Security
