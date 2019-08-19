@@ -1,0 +1,11 @@
+// Author: someone@somewhere.com
+// Display name: Events that arrived early
+// Description: Shows errors due to events where difference between Application time and Arrival time is greater than 5 minutes.
+// Category: Analytics
+// Topic: Input data Errors
+// ResourceType: Stream Analytics jobs
+// Keywords:
+
+AzureDiagnostics
+| where ResourceProvider == "MICROSOFT.STREAMANALYTICS" and parse_json(properties_s).DataErrorType == "EarlyInputEvent"
+| project TimeGenerated, Resource, Region_s, OperationName, properties_s, Level

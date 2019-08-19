@@ -1,0 +1,11 @@
+// Author: someone@somewhere.com
+// Display name: List all input deserialization errors
+// Description: Shows errors caused due to malformed events that could not be deserialized by the job.
+// Category: Analytics
+// Topic: Input data Errors
+// ResourceType: Stream Analytics jobs
+// Keywords:
+
+AzureDiagnostics
+| where ResourceProvider == "MICROSOFT.STREAMANALYTICS" and parse_json(properties_s).DataErrorType in ("InputDeserializerError.InvalidData", "InputDeserializerError.TypeConversionError", "InputDeserializerError.MissingColumns", "InputDeserializerError.InvalidHeader", "InputDeserializerError.InvalidCompressionType")
+| project TimeGenerated, Resource, Region_s, OperationName, properties_s, Level

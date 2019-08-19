@@ -1,0 +1,11 @@
+// Author: someone@somewhere.com
+// Display name: Events that arrived late
+// Description: Shows errors due to events where difference between application time and arrival time is greater than the late arrival policy.
+// Category: Analytics
+// Topic: Input data Errors
+// ResourceType: Stream Analytics jobs
+// Keywords:
+
+AzureDiagnostics
+| where ResourceProvider == "MICROSOFT.STREAMANALYTICS" and  parse_json(properties_s).DataErrorType == "LateInputEvent"
+| project TimeGenerated, Resource, Region_s, OperationName, properties_s, Level

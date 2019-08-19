@@ -1,0 +1,11 @@
+// Author: someone@somewhere.com
+// Display name: Reference data logs
+// Description: Shows all diagnostic logs related to reference data operations.
+// Category: Analytics
+// Topic: General
+// ResourceType: Stream Analytics jobs
+// Keywords:
+
+AzureDiagnostics
+| where ResourceProvider == "MICROSOFT.STREAMANALYTICS" and parse_json(properties_s).Type in ("ReferenceDataLoadSnapshot" , "ReferenceDataInputAdapterError", "ReferenceDataInputAdapterProcessBlobFailed", "ReferenceDataInputAdapterTransientError", "ReferenceDataScanSnapshots")
+| project TimeGenerated, Resource, Region_s, OperationName, properties_s, Level

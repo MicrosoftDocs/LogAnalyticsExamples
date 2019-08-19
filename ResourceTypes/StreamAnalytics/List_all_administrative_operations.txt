@@ -1,0 +1,11 @@
+// Author: someone@somewhere.com
+// Display name: List all administrative operations
+// Description: Operations performed on the job such as start, stop, add input and output etc.
+// Category: Analytics
+// Topic: General
+// ResourceType: Stream Analytics jobs
+// Keywords:
+
+AzureDiagnostics
+| where ResourceProvider == "MICROSOFT.STREAMANALYTICS" and Category == "Authoring" 
+| project TimeGenerated, Resource, Region_s, OperationName, properties_s, Level

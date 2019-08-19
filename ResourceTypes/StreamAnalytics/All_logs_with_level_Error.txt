@@ -1,0 +1,11 @@
+// Author: someone@somewhere.com
+// Display name: All logs with level "Error"
+// Description: Shows all logs that is likely to have negatively impacted your job.
+// Category: Analytics
+// Topic: General
+// ResourceType: Stream Analytics jobs
+// Keywords:
+
+AzureDiagnostics
+| where ResourceProvider == "MICROSOFT.STREAMANALYTICS" and Level == "Error" 
+| project TimeGenerated, Resource, Region_s, OperationName, properties_s, Level

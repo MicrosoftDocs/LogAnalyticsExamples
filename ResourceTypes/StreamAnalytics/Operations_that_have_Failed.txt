@@ -1,0 +1,11 @@
+// Author: someone@somewhere.com
+// Display name: Operations that have "Failed"
+// Description: Shows all operations on your job that have resulted in a failure
+// Category: Analytics
+// Topic: General
+// ResourceType: Stream Analytics jobs
+// Keywords:
+
+AzureDiagnostics
+| where ResourceProvider == "MICROSOFT.STREAMANALYTICS" and status_s == "Failed" 
+| project TimeGenerated, Resource, Region_s, OperationName, properties_s, Level

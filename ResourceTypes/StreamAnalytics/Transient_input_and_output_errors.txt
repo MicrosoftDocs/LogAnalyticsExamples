@@ -1,0 +1,11 @@
+// Author: someone@somewhere.com
+// Display name: Transient input and output errors
+// Description: Shows all errors related to input and output that are intermittent in nature.
+// Category: Analytics
+// Topic: General
+// ResourceType: Stream Analytics jobs
+// Keywords:
+
+AzureDiagnostics
+| where ResourceProvider == "MICROSOFT.STREAMANALYTICS" and parse_json(properties_s).Type in ("AzureFunctionOutputAdapterTransientError", "BlobInputAdapterTransientError", "DataLakeOutputAdapterTransientError", "DocumentDbOutputAdapterTransientError", "EdgeHubOutputAdapterEdgeHubTransientError", "EventHubBasedInputInvalidOperationTransientError", "EventHubBasedInputOperationCanceledTransientError", "EventHubBasedInputTimeoutTransientError", "EventHubBasedInputTransientError", "EventHubOutputAdapterEventHubTransientError", "InputProcessorTransientFailure", "OutputProcessorTransientError", "ReferenceDataInputAdapterTransientError", "ServiceBusOutputAdapterTransientError", "TableOutputAdapterTransientError")
+| project TimeGenerated, Resource, Region_s, OperationName, properties_s, Level

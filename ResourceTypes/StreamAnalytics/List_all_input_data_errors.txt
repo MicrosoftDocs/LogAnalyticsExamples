@@ -1,0 +1,11 @@
+// Author: someone@somewhere.com
+// Display name: List all input data errors
+// Description: Shows all errors that occurred while processing the data from inputs.
+// Category: Analytics
+// Topic: Input data Errors
+// ResourceType: Stream Analytics jobs	// may no be needed, support for smart saving, helps if saved in solutions folder
+// Keywords:
+
+AzureDiagnostics 
+| where ResourceProvider == "MICROSOFT.STREAMANALYTICS" and parse_json(properties_s).Type == "DataError" 
+| project TimeGenerated, Resource, Region_s, OperationName, properties_s, Level

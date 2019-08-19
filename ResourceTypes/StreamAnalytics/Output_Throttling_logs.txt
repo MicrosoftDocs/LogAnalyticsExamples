@@ -1,0 +1,11 @@
+// Author: someone@somewhere.com
+// Display name: Output Throttling logs (cosmos db, pbi, event hubs)
+// Description: Shows all instances where writing to one of your outputs was throttled by the destination service.
+// Category: Analytics
+// Topic: General
+// ResourceType: Stream Analytics jobs
+// Keywords:
+
+AzureDiagnostics
+| where ResourceProvider == "MICROSOFT.STREAMANALYTICS" and parse_json(properties_s).Type in ("DocumentDbOutputAdapterWriteThrottlingError", "EventHubOutputAdapterEventHubThrottlingError", "PowerBIServiceThrottlingError", "PowerBIServiceThrottlingError")
+| project TimeGenerated, Resource, Region_s, OperationName, properties_s, Level
