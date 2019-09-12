@@ -5,6 +5,10 @@
 ##### [Chart the record-count per table in the last 5 hours](log-analytics/chart-the-record-count-per-table-in-the-last-5-hours.md)
 ##### [Count all logs collected over the last hour, per type](log-analytics/count-all-logs-collected-over-the-last-hour-per-type.md)
 
+### No specific data type
+##### [Calculate the duration of a reported state, logged continuously](log-analytics/calculate-state-duration.md)
+##### [Exclude a range of IPs from results](log-analytics/exclude-IP-range.md)
+
 ### AzureDiagnostics
 ##### [Count Azure diagnostics records per category](log-analytics/count-azure-diagnostics-records-per-category.md)
 ##### [Get a random record for each unique category](log-analytics/get-a-random-record-for-each-unique-category.md)

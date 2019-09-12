@@ -2,7 +2,7 @@
 #### #datatable #sort #prev
 
 This example reviews status reports of VMs, which are either Running or Waiting, and can change from one to the other several times, and calculates the waiting time of each VM.
-```Kusto
+```OQL
 datatable (VMName:string, Status:string, TimeGenerated:datetime)
 [
   "VM1", "Running", datetime('2018-11-13T19:27:16.000'),
