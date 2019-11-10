@@ -1,4 +1,4 @@
-## Request duration compared to monthly average
+## Daily request duration compared with monthly average
 #### #count #make-series #timechart #summarize
 
 
