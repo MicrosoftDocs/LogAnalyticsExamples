@@ -1,0 +1,667 @@
+{
+  "version": "Notebook/1.0",
+  "items": [
+    {
+      "type": 9,
+      "content": {
+        "version": "KqlParameterItem/1.0",
+        "parameters": [
+          {
+            "id": "80a15801-7442-49f3-a82f-6e55849ec7fb",
+            "version": "KqlParameterItem/1.0",
+            "name": "DefaultWorkspace",
+            "type": 5,
+            "isRequired": true,
+            "value": "value::1",
+            "isHiddenWhenLocked": true,
+            "typeSettings": {
+              "resourceTypeFilter": {
+                "microsoft.operationalinsights/workspaces": true
+              },
+              "additionalResourceOptions": [
+                "value::1"
+              ]
+            }
+          },
+          {
+            "id": "90119d28-e9c1-4c0d-8715-1f601d337f5c",
+            "version": "KqlParameterItem/1.0",
+            "name": "DefaultSubscription",
+            "type": 5,
+            "value": "value::1",
+            "isHiddenWhenLocked": true,
+            "typeSettings": {
+              "resourceTypeFilter": {
+                "microsoft.resources/subscriptions": true
+              },
+              "additionalResourceOptions": [
+                "value::1"
+              ]
+            }
+          },
+          {
+            "id": "7da21a07-10f4-4455-9105-c37132dcee0d",
+            "version": "KqlParameterItem/1.0",
+            "name": "ContextSelection",
+            "type": 1,
+            "query": "// {DefaultWorkspace}\r\nwhere strcat(\"'\", id, \"'\") =~ \"{DefaultWorkspace:value}\"\r\n| project value = tostring(pack('sub', subscriptionId, 'rg', resourceGroup, 'ws', id))",
+            "crossComponentResources": [
+              "value::all"
+            ],
+            "isHiddenWhenLocked": true,
+            "queryType": 1,
+            "resourceType": "microsoft.resourcegraph/resources"
+          },
+          {
+            "id": "7324c544-2fd2-4d61-b529-481a0f5fd286",
+            "version": "KqlParameterItem/1.0",
+            "name": "HybridMode",
+            "type": 1,
+            "value": "false",
+            "isHiddenWhenLocked": true,
+            "criteriaData": [
+              {
+                "condition": "if (ContextSelection is empty ), result = 'false'",
+                "criteriaContext": {
+                  "leftOperand": "ContextSelection",
+                  "operator": "is Empty",
+                  "rightValType": "param",
+                  "resultValType": "static",
+                  "resultVal": "false"
+                }
+              },
+              {
+                "condition": "else result = 'true'",
+                "criteriaContext": {
+                  "operator": "Default",
+                  "rightValType": "param",
+                  "resultValType": "static",
+                  "resultVal": "true"
+                }
+              }
+            ]
+          },
+          {
+            "id": "2942e38e-232e-4d89-9ada-12f9863b3c5b",
+            "version": "KqlParameterItem/1.0",
+            "name": "Subscriptions",
+            "type": 6,
+            "isRequired": true,
+            "multiSelect": true,
+            "quote": "'",
+            "delimiter": ",",
+            "query": "// {DefaultWorkspace} {ContextSelection} {DefaultSubscription}\r\nsummarize by subscriptionId\r\n| project strcat('/subscriptions/', subscriptionId), selected = iff({HybridMode} == true, iff(subscriptionId == todynamic('{ContextSelection}').sub, true, false), iff(strcat('/subscriptions/', subscriptionId) == '{DefaultSubscription}', true, false))",
+            "crossComponentResources": [
+              "value::all"
+            ],
+            "typeSettings": {
+              "additionalResourceOptions": []
+            },
+            "queryType": 1,
+            "resourceType": "microsoft.resourcegraph/resources"
+          },
+          {
+            "id": "2bc1e5fc-cc2d-4eb5-bead-5f7d96664dec",
+            "version": "KqlParameterItem/1.0",
+            "name": "Workspaces",
+            "type": 5,
+            "isRequired": true,
+            "multiSelect": true,
+            "quote": "'",
+            "delimiter": ",",
+            "query": "// {DefaultWorkspace} {ContextSelection} {Subscriptions}\r\nwhere type =~ 'microsoft.operationalinsights/workspaces'\r\n| summarize by id, name\r\n| order by tolower(name) asc\r\n| extend Row = row_number()\r\n| project id, selected = iff({HybridMode} == 'true', iff(id == todynamic('{ContextSelection}').ws, true, false), Row == 1)",
+            "crossComponentResources": [
+              "{Subscriptions}"
+            ],
+            "typeSettings": {
+              "limitSelectTo": 5,
+              "additionalResourceOptions": [
+                "value::1"
+              ]
+            },
+            "queryType": 1,
+            "resourceType": "microsoft.resourcegraph/resources"
+          },
+          {
+            "id": "d0f502a4-2f0f-4d3d-af70-5198d41f3e0c",
+            "version": "KqlParameterItem/1.0",
+            "name": "TimeRange",
+            "type": 4,
+            "isRequired": true,
+            "value": {
+              "durationMs": 3600000
+            },
+            "typeSettings": {
+              "selectableValues": [
+                {
+                  "durationMs": 300000,
+                  "createdTime": "2019-02-20T19:49:16.686Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                },
+                {
+                  "durationMs": 900000,
+                  "createdTime": "2019-02-20T19:49:16.686Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                },
+                {
+                  "durationMs": 1800000,
+                  "createdTime": "2019-02-20T19:49:16.686Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                },
+                {
+                  "durationMs": 3600000,
+                  "createdTime": "2019-02-20T19:49:16.686Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                },
+                {
+                  "durationMs": 14400000,
+                  "createdTime": "2019-02-20T19:49:16.687Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                },
+                {
+                  "durationMs": 43200000,
+                  "createdTime": "2019-02-20T19:49:16.687Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                },
+                {
+                  "durationMs": 86400000,
+                  "createdTime": "2019-02-20T19:49:16.687Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                },
+                {
+                  "durationMs": 172800000,
+                  "createdTime": "2019-02-20T19:49:16.687Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                },
+                {
+                  "durationMs": 259200000,
+                  "createdTime": "2019-02-20T19:49:16.688Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                },
+                {
+                  "durationMs": 604800000,
+                  "createdTime": "2019-02-20T19:49:16.688Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                },
+                {
+                  "durationMs": 1209600000,
+                  "createdTime": "2019-02-20T19:49:16.688Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                },
+                {
+                  "durationMs": 2592000000,
+                  "createdTime": "2019-02-20T19:49:16.688Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                },
+                {
+                  "durationMs": 5184000000,
+                  "createdTime": "2019-02-20T19:49:16.688Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                },
+                {
+                  "durationMs": 7776000000,
+                  "createdTime": "2019-02-20T19:49:16.688Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                }
+              ],
+              "allowCustom": true
+            }
+          },
+          {
+            "id": "48e2b8b9-e618-480c-80e6-5cf1cee85ee9",
+            "version": "KqlParameterItem/1.0",
+            "name": "Test",
+            "label": "Not Onboarded",
+            "type": 1,
+            "query": "VMConnection\r\n| take 1\r\n| summarize count()",
+            "crossComponentResources": [
+              "{Workspaces}"
+            ],
+            "isHiddenWhenLocked": true,
+            "timeContextFromParameter": "TimeRange",
+            "queryType": 0,
+            "resourceType": "microsoft.operationalinsights/workspaces",
+            "value": null
+          }
+        ],
+        "style": "pills",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces"
+      },
+      "name": "parameters - 0"
+    },
+    {
+      "type": 1,
+      "content": {
+        "json": "⚠ `VMConnection` table was either not detected or empty. Try the following:\r\n\r\n* Select a different time range\r\n* Try different scope selections\r\n* Onboard to Azure Monitor for VMs ([Azure Monitor for VMs GA FAQ](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/vminsights-ga-release-faq))."
+      },
+      "conditionalVisibility": {
+        "parameterName": "Test",
+        "comparison": "isNotEqualTo",
+        "value": "1"
+      },
+      "name": "text - 3"
+    },
+    {
+      "type": 9,
+      "content": {
+        "version": "KqlParameterItem/1.0",
+        "crossComponentResources": [
+          "{Workspaces}"
+        ],
+        "parameters": [
+          {
+            "id": "483bfb9d-aa94-4968-9ea7-1aab10f9d8c2",
+            "version": "KqlParameterItem/1.0",
+            "name": "Computer",
+            "type": 2,
+            "isRequired": true,
+            "query": "VMConnection\r\n| distinct Computer",
+            "crossComponentResources": [
+              "{Workspaces}"
+            ],
+            "value": "value::1",
+            "typeSettings": {
+              "additionalResourceOptions": [
+                "value::1"
+              ]
+            },
+            "timeContext": {
+              "durationMs": 0
+            },
+            "timeContextFromParameter": "TimeRange",
+            "queryType": 0,
+            "resourceType": "microsoft.operationalinsights/workspaces"
+          }
+        ],
+        "style": "above",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces"
+      },
+      "conditionalVisibility": {
+        "parameterName": "Test",
+        "comparison": "isEqualTo",
+        "value": "1"
+      },
+      "name": "parameters - 1"
+    },
+    {
+      "type": 1,
+      "content": {
+        "json": "Compare traffic between two times periods for machine <span title=\"{Computer:value}\">`{Computer}`</span> in workspace <span title=\"{Workspace:value}\">`{Workspace:label}`</span>\r\n\r\n---"
+      },
+      "conditionalVisibility": {
+        "parameterName": "Test",
+        "comparison": "isEqualTo",
+        "value": "1"
+      },
+      "name": "text - 2"
+    },
+    {
+      "type": 9,
+      "content": {
+        "version": "KqlParameterItem/1.0",
+        "crossComponentResources": [
+          "{Workspaces}"
+        ],
+        "parameters": [
+          {
+            "id": "f387f0ee-cbd6-4767-8e11-731857ef795e",
+            "version": "KqlParameterItem/1.0",
+            "name": "StartDate",
+            "type": 1,
+            "description": "Use the format yyy-MM-DD to denote at which date to start network data",
+            "isRequired": true,
+            "query": "print strcat(format_datetime(now(), 'yyyy-MM-dd'))",
+            "crossComponentResources": [
+              "{Workspaces}"
+            ],
+            "queryType": 0,
+            "resourceType": "microsoft.operationalinsights/workspaces"
+          },
+          {
+            "id": "0f5798db-d43b-49eb-8e0d-a66c266ef557",
+            "version": "KqlParameterItem/1.0",
+            "name": "TimeRange",
+            "type": 1,
+            "description": "Use kusto timespan format to specify the length of time to retrieve network data",
+            "isRequired": true,
+            "value": "24h"
+          },
+          {
+            "id": "6ca7a031-ad7a-4af6-8d84-26795a09ede0",
+            "version": "KqlParameterItem/1.0",
+            "name": "TimeGrain",
+            "type": 1,
+            "description": "Use kusto timespan format to specify the bin size of the chart",
+            "isRequired": true,
+            "value": "15m"
+          },
+          {
+            "id": "1b5c6bd9-07dc-4ab8-b92b-1e5d5c56badc",
+            "version": "KqlParameterItem/1.0",
+            "name": "StartDateA",
+            "type": 1,
+            "query": "print '{StartDate}'",
+            "crossComponentResources": [
+              "{Workspaces}"
+            ],
+            "isHiddenWhenLocked": true,
+            "queryType": 0,
+            "resourceType": "microsoft.operationalinsights/workspaces"
+          },
+          {
+            "id": "647c61bb-b614-443e-8c63-e05f7c4ebca7",
+            "version": "KqlParameterItem/1.0",
+            "name": "TimeRangeA",
+            "type": 1,
+            "query": "print '{TimeRange}'",
+            "crossComponentResources": [
+              "{Workspaces}"
+            ],
+            "isHiddenWhenLocked": true,
+            "queryType": 0,
+            "resourceType": "microsoft.operationalinsights/workspaces"
+          },
+          {
+            "id": "c63b78d2-5831-4a93-aee3-64ee50e0b226",
+            "version": "KqlParameterItem/1.0",
+            "name": "TimeGrainA",
+            "type": 1,
+            "query": "print '{TimeGrain}'",
+            "crossComponentResources": [
+              "{Workspaces}"
+            ],
+            "isHiddenWhenLocked": true,
+            "queryType": 0,
+            "resourceType": "microsoft.operationalinsights/workspaces"
+          }
+        ],
+        "style": "above",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces"
+      },
+      "conditionalVisibility": {
+        "parameterName": "Test",
+        "comparison": "isEqualTo",
+        "value": "1"
+      },
+      "customWidth": "50",
+      "name": "parameters - 3"
+    },
+    {
+      "type": 9,
+      "content": {
+        "version": "KqlParameterItem/1.0",
+        "crossComponentResources": [
+          "{Workspaces}"
+        ],
+        "parameters": [
+          {
+            "id": "89810243-7323-42b1-8bde-970df46c4da1",
+            "version": "KqlParameterItem/1.0",
+            "name": "StartDate",
+            "type": 1,
+            "description": "Use the format yyyy-MM-DD to denote at which date to start network data",
+            "isRequired": true,
+            "query": "print strcat(format_datetime(now()-1d, 'yyyy-MM-dd'))",
+            "crossComponentResources": [
+              "{Workspaces}"
+            ],
+            "queryType": 0,
+            "resourceType": "microsoft.operationalinsights/workspaces"
+          },
+          {
+            "id": "876c9ba0-1e2c-4bb8-aa8e-c6fe54be3f7e",
+            "version": "KqlParameterItem/1.0",
+            "name": "TimeRange",
+            "type": 1,
+            "description": "Use kusto timespan format to specify the length of time to retrieve network data",
+            "isRequired": true,
+            "value": "24h"
+          },
+          {
+            "id": "fbe95517-035f-4476-8a47-e5eb8cea82b7",
+            "version": "KqlParameterItem/1.0",
+            "name": "TimeGrain",
+            "type": 1,
+            "description": "Use kusto timespan format to specify the bin size of the chart",
+            "isRequired": true,
+            "value": "15m"
+          },
+          {
+            "id": "03ec8961-833c-4396-99ae-b4ec3703ed3f",
+            "version": "KqlParameterItem/1.0",
+            "name": "StartDateB",
+            "type": 1,
+            "query": "print '{StartDate}'",
+            "crossComponentResources": [
+              "{Workspaces}"
+            ],
+            "isHiddenWhenLocked": true,
+            "queryType": 0,
+            "resourceType": "microsoft.operationalinsights/workspaces"
+          },
+          {
+            "id": "6cc71fe8-0014-403b-ba21-c08d23d0329d",
+            "version": "KqlParameterItem/1.0",
+            "name": "TimeRangeB",
+            "type": 1,
+            "query": "print '{TimeRange}'",
+            "crossComponentResources": [
+              "{Workspaces}"
+            ],
+            "isHiddenWhenLocked": true,
+            "queryType": 0,
+            "resourceType": "microsoft.operationalinsights/workspaces"
+          },
+          {
+            "id": "d632d1d8-37e1-4f03-b725-28b93abc6369",
+            "version": "KqlParameterItem/1.0",
+            "name": "TimeGrainB",
+            "type": 1,
+            "query": "print '{TimeGrain}'",
+            "crossComponentResources": [
+              "{Workspaces}"
+            ],
+            "isHiddenWhenLocked": true,
+            "queryType": 0,
+            "resourceType": "microsoft.operationalinsights/workspaces"
+          }
+        ],
+        "style": "above",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces"
+      },
+      "conditionalVisibility": {
+        "parameterName": "Test",
+        "comparison": "isEqualTo",
+        "value": "1"
+      },
+      "customWidth": "50",
+      "name": "parameters - 4"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "let Computer = \"{Computer}\";\r\nlet TimeRange = time(\"{TimeRangeA}\");\r\nlet BinSize = time(\"{TimeGrainA}\");\r\nlet StartTime = datetime(\"{StartDateA}\");\r\nlet EndTime = StartTime + TimeRange;\r\nVMConnection​\r\n| where Computer == Computer\r\n| where TimeGenerated between( StartTime .. EndTime )\r\n| summarize BytesSent = sum(BytesSent), ByteReceived = sum(BytesReceived) by bin(TimeGenerated, BinSize)​\r\n| render timechart",
+        "size": 0,
+        "showAnalytics": true,
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "crossComponentResources": [
+          "{Workspaces}"
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "Test",
+        "comparison": "isEqualTo",
+        "value": "1"
+      },
+      "customWidth": "50",
+      "name": "query - 5"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "let Computer = \"{Computer}\";\r\nlet TimeRange = time(\"{TimeRangeB}\");\r\nlet BinSize = time(\"{TimeGrainB}\");\r\nlet StartTime = datetime(\"{StartDateB}\");\r\nlet EndTime = StartTime + TimeRange;\r\nVMConnection​\r\n| where Computer == Computer\r\n| where TimeGenerated between( StartTime .. EndTime )\r\n| summarize BytesSent = sum(BytesSent), ByteReceived = sum(BytesReceived) by bin(TimeGenerated, BinSize)​\r\n| render timechart",
+        "size": 0,
+        "showAnalytics": true,
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "crossComponentResources": [
+          "{Workspaces}"
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "Test",
+        "comparison": "isEqualTo",
+        "value": "1"
+      },
+      "customWidth": "50",
+      "name": "query - 6"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "let Computer = \"{Computer}\";\r\nlet TimeRange = time(\"{TimeRangeA}\");\r\nlet BinSize = time(\"{TimeGrainA}\");\r\nlet StartTime = datetime(\"{StartDateA}\");\r\nlet EndTime = StartTime + TimeRange;\r\nVMConnection​\r\n| where Computer == Computer\r\n| where TimeGenerated between( StartTime .. EndTime )\r\n| summarize BytesSent = sum(BytesSent), BytesReceived = sum(BytesReceived) by ProcessName\r\n| order by BytesSent desc",
+        "size": 0,
+        "showAnalytics": true,
+        "exportParameterName": "ProcessA",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "crossComponentResources": [
+          "{Workspaces}"
+        ],
+        "gridSettings": {
+          "formatters": [
+            {
+              "columnMatch": "BytesSent",
+              "formatter": 8,
+              "formatOptions": {
+                "min": 0,
+                "palette": "blue",
+                "showIcon": true
+              },
+              "numberFormat": {
+                "unit": 2,
+                "options": {
+                  "style": "decimal"
+                }
+              }
+            },
+            {
+              "columnMatch": "BytesReceived",
+              "formatter": 8,
+              "formatOptions": {
+                "palette": "purple",
+                "showIcon": true
+              },
+              "numberFormat": {
+                "unit": 2,
+                "options": {
+                  "style": "decimal"
+                }
+              }
+            }
+          ],
+          "rowLimit": 10000
+        }
+      },
+      "conditionalVisibility": {
+        "parameterName": "Test",
+        "comparison": "isEqualTo",
+        "value": "1"
+      },
+      "customWidth": "50",
+      "name": "query - 7"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "let Computer = \"{Computer}\";\r\nlet TimeRange = time(\"{TimeRangeB}\");\r\nlet BinSize = time(\"{TimeGrainB}\");\r\nlet StartTime = datetime(\"{StartDateB}\");\r\nlet EndTime = StartTime + TimeRange;\r\nVMConnection​\r\n| where Computer == Computer\r\n| where TimeGenerated between( StartTime .. EndTime )\r\n| summarize BytesSent = sum(BytesSent), BytesReceived = sum(BytesReceived) by ProcessName\r\n| order by BytesSent desc",
+        "size": 0,
+        "showAnalytics": true,
+        "exportParameterName": "ProcessB",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "crossComponentResources": [
+          "{Workspaces}"
+        ],
+        "gridSettings": {
+          "formatters": [
+            {
+              "columnMatch": "BytesSent",
+              "formatter": 8,
+              "formatOptions": {
+                "palette": "blue",
+                "showIcon": true
+              },
+              "numberFormat": {
+                "unit": 2,
+                "options": {
+                  "style": "decimal"
+                }
+              }
+            },
+            {
+              "columnMatch": "BytesReceived",
+              "formatter": 8,
+              "formatOptions": {
+                "palette": "purple",
+                "showIcon": true
+              },
+              "numberFormat": {
+                "unit": 2,
+                "options": {
+                  "style": "decimal"
+                }
+              }
+            }
+          ],
+          "rowLimit": 10000
+        }
+      },
+      "conditionalVisibility": {
+        "parameterName": "Test",
+        "comparison": "isEqualTo",
+        "value": "1"
+      },
+      "customWidth": "50",
+      "name": "query - 8"
+    }
+  ],
+  "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/workbook.json"
+}

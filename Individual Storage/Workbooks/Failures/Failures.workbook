@@ -1,0 +1,577 @@
+{
+  "version": "Notebook/1.0",
+  "items": [
+    {
+      "type": 9,
+      "content": {
+        "version": "KqlParameterItem/1.0",
+        "query": "",
+        "crossComponentResources": [],
+        "parameters": [
+          {
+            "id": "487a9f92-5350-4eec-8d68-15bdf2470550",
+            "version": "KqlParameterItem/1.0",
+            "name": "StorageAccount",
+            "type": 5,
+            "isRequired": true,
+            "value": "value::1",
+            "typeSettings": {
+              "resourceTypeFilter": {
+                "microsoft.storage/storageaccounts": true
+              },
+              "additionalResourceOptions": [
+                "value::1"
+              ]
+            }
+          }
+        ],
+        "style": "pills",
+        "queryType": 0,
+        "resourceType": "microsoft.storage/storageaccounts"
+      },
+      "conditionalVisibility": {
+        "parameterName": "1",
+        "comparison": "isEqualTo",
+        "value": "2"
+      },
+      "name": "resource param"
+    },
+    {
+      "type": 9,
+      "content": {
+        "version": "KqlParameterItem/1.0",
+        "query": "",
+        "crossComponentResources": [],
+        "parameters": [
+          {
+            "id": "d04c2e2c-b67c-4ae1-9b80-a36e27310200",
+            "version": "KqlParameterItem/1.0",
+            "name": "TimeRange",
+            "type": 4,
+            "isRequired": true,
+            "value": {
+              "durationMs": 14400000
+            },
+            "typeSettings": {
+              "selectableValues": [
+                {
+                  "durationMs": 300000
+                },
+                {
+                  "durationMs": 900000
+                },
+                {
+                  "durationMs": 1800000
+                },
+                {
+                  "durationMs": 3600000
+                },
+                {
+                  "durationMs": 14400000
+                },
+                {
+                  "durationMs": 43200000
+                },
+                {
+                  "durationMs": 86400000
+                },
+                {
+                  "durationMs": 172800000
+                },
+                {
+                  "durationMs": 259200000
+                },
+                {
+                  "durationMs": 604800000
+                },
+                {
+                  "durationMs": 1209600000
+                }
+              ],
+              "allowCustom": true
+            },
+            "label": "Time Range"
+          }
+        ],
+        "style": "above",
+        "queryType": 0,
+        "resourceType": "microsoft.storage/storageaccounts"
+      },
+      "name": "Failures params",
+      "styleSettings": {
+        "margin": "0 0 20px 0"
+      }
+    },
+    {
+      "type": 10,
+      "content": {
+        "chartId": "workbook874420eb-4632-4961-9fb9-b29ef76d947b",
+        "version": "MetricsItem/2.0",
+        "size": 4,
+        "chartType": -1,
+        "resourceIds": [
+          "{StorageAccount}"
+        ],
+        "timeContext": {
+          "durationMs": 0
+        },
+        "timeContextFromParameter": "TimeRange",
+        "resourceType": "microsoft.storage/storageaccounts",
+        "resourceParameter": "StorageAccount",
+        "metrics": [
+          {
+            "namespace": "microsoft.storage/storageaccounts",
+            "metric": "microsoft.storage/storageaccounts-Transaction-Transactions",
+            "aggregation": 1,
+            "splitBy": null,
+            "columnName": "Total Transactions"
+          }
+        ],
+        "gridFormatType": 1,
+        "tileSettings": {
+          "titleContent": {
+            "columnMatch": "Metric",
+            "formatter": 1,
+            "formatOptions": {
+              "showIcon": true
+            }
+          },
+          "leftContent": {
+            "columnMatch": "Value",
+            "formatter": 12,
+            "formatOptions": {
+              "min": 0,
+              "palette": "purpleBlueGreen",
+              "showIcon": true
+            },
+            "numberFormat": {
+              "unit": 17,
+              "options": {
+                "style": "decimal",
+                "maximumFractionDigits": 1
+              }
+            }
+          },
+          "showBorder": false
+        },
+        "filters": []
+      },
+      "customWidth": "15",
+      "name": "Total transactions"
+    },
+    {
+      "type": 10,
+      "content": {
+        "chartId": "workbook874420eb-4632-4961-9fb9-b29ef76d947b",
+        "version": "MetricsItem/2.0",
+        "size": 4,
+        "chartType": -1,
+        "resourceIds": [
+          "{StorageAccount}"
+        ],
+        "timeContext": {
+          "durationMs": 0
+        },
+        "timeContextFromParameter": "TimeRange",
+        "resourceType": "microsoft.storage/storageaccounts",
+        "resourceParameter": "StorageAccount",
+        "metrics": [
+          {
+            "namespace": "microsoft.storage/storageaccounts",
+            "metric": "microsoft.storage/storageaccounts-Transaction-Transactions",
+            "aggregation": 1,
+            "splitBy": "ResponseType"
+          }
+        ],
+        "gridFormatType": 1,
+        "tileSettings": {
+          "titleContent": {
+            "columnMatch": "Segment",
+            "formatter": 1,
+            "formatOptions": {
+              "showIcon": true
+            }
+          },
+          "leftContent": {
+            "columnMatch": "Value",
+            "formatter": 12,
+            "formatOptions": {
+              "min": 0,
+              "palette": "purpleBlueGreen",
+              "showIcon": true
+            },
+            "numberFormat": {
+              "unit": 17,
+              "options": {
+                "style": "decimal",
+                "maximumFractionDigits": 1
+              }
+            }
+          },
+          "showBorder": false
+        },
+        "filters": []
+      },
+      "customWidth": "85",
+      "name": "Error Summary"
+    },
+    {
+      "type": 10,
+      "content": {
+        "chartId": "workbook175d3b32-6968-45c4-a01a-2958cbb0a7d7",
+        "version": "MetricsItem/2.0",
+        "size": 0,
+        "chartType": 2,
+        "resourceIds": [
+          "{StorageAccount}"
+        ],
+        "timeContext": {
+          "durationMs": 0
+        },
+        "timeContextFromParameter": "TimeRange",
+        "resourceType": "microsoft.storage/storageaccounts",
+        "resourceParameter": "StorageAccount",
+        "metrics": [
+          {
+            "namespace": "microsoft.storage/storageaccounts",
+            "metric": "microsoft.storage/storageaccounts-Transaction-Transactions",
+            "aggregation": 1,
+            "splitBy": "ResponseType",
+            "columnName": "Failures"
+          }
+        ],
+        "title": "Failing transactions",
+        "filters": [
+          {
+            "key": "ResponseType",
+            "operator": 1,
+            "values": [
+              "Success"
+            ]
+          }
+        ]
+      },
+      "showPin": true,
+      "name": "Transaction trend",
+      "styleSettings": {
+        "margin": "0 0 20px 0"
+      }
+    },
+    {
+      "type": 10,
+      "content": {
+        "chartId": "workbook53678d70-22d8-403b-96b1-1c24f90516ed",
+        "version": "MetricsItem/2.0",
+        "size": 0,
+        "chartType": 0,
+        "resourceIds": [
+          "{StorageAccount}"
+        ],
+        "timeContext": {
+          "durationMs": 0
+        },
+        "timeContextFromParameter": "TimeRange",
+        "resourceType": "microsoft.storage/storageaccounts",
+        "resourceParameter": "StorageAccount",
+        "metrics": [
+          {
+            "namespace": "microsoft.storage/storageaccounts/blobservices",
+            "metric": "microsoft.storage/storageaccounts/blobservices-Transaction-Transactions",
+            "aggregation": 1,
+            "splitBy": "ApiName",
+            "splitBySortOrder": -1,
+            "splitByLimit": 5
+          },
+          {
+            "namespace": "microsoft.storage/storageaccounts/tableservices",
+            "metric": "microsoft.storage/storageaccounts/tableservices-Transaction-Transactions",
+            "aggregation": 1,
+            "splitBy": "ApiName",
+            "splitBySortOrder": -1,
+            "splitByLimit": 5
+          },
+          {
+            "namespace": "microsoft.storage/storageaccounts/fileservices",
+            "metric": "microsoft.storage/storageaccounts/fileservices-Transaction-Transactions",
+            "aggregation": 1,
+            "splitBy": "ApiName",
+            "splitBySortOrder": -1,
+            "splitByLimit": 5
+          },
+          {
+            "namespace": "microsoft.storage/storageaccounts/queueservices",
+            "metric": "microsoft.storage/storageaccounts/queueservices-Transaction-Transactions",
+            "aggregation": 1,
+            "splitBy": "ApiName",
+            "splitBySortOrder": -1,
+            "splitByLimit": 5
+          }
+        ],
+        "title": "Failing transactions by API name",
+        "gridSettings": {
+          "formatters": [
+            {
+              "columnMatch": "Subscription",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Name",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Namespace",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Metric",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Aggregation",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Segment Field",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Segment",
+              "formatter": 5,
+              "formatOptions": {
+                "palette": "blue",
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Value",
+              "formatter": 8,
+              "formatOptions": {
+                "palette": "blue",
+                "showIcon": true,
+                "aggregation": "Sum"
+              }
+            },
+            {
+              "columnMatch": "Timeline",
+              "formatter": 9,
+              "formatOptions": {
+                "palette": "blue",
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "$gen_group",
+              "formatter": 0,
+              "formatOptions": {
+                "showIcon": true
+              }
+            }
+          ],
+          "filter": true,
+          "hierarchySettings": {
+            "treeType": 1,
+            "groupBy": [
+              "Namespace"
+            ],
+            "expandTopLevel": true,
+            "finalBy": "Segment"
+          },
+          "labelSettings": []
+        },
+        "gridFormatType": 1,
+        "filters": [
+          {
+            "key": "ResponseType",
+            "operator": 1,
+            "values": [
+              "Success"
+            ]
+          }
+        ]
+      },
+      "customWidth": "50",
+      "showPin": true,
+      "name": "Failing transactions by API name "
+    },
+    {
+      "type": 10,
+      "content": {
+        "chartId": "workbook53678d70-22d8-403b-96b1-1c24f90516ed",
+        "version": "MetricsItem/2.0",
+        "size": 0,
+        "chartType": 0,
+        "resourceIds": [
+          "{StorageAccount}"
+        ],
+        "timeContext": {
+          "durationMs": 0
+        },
+        "timeContextFromParameter": "TimeRange",
+        "resourceType": "microsoft.storage/storageaccounts",
+        "resourceParameter": "StorageAccount",
+        "metrics": [
+          {
+            "namespace": "microsoft.storage/storageaccounts/blobservices",
+            "metric": "microsoft.storage/storageaccounts/blobservices-Transaction-Transactions",
+            "aggregation": 1,
+            "splitBy": "ResponseType",
+            "splitBySortOrder": -1,
+            "splitByLimit": 5
+          },
+          {
+            "namespace": "microsoft.storage/storageaccounts/tableservices",
+            "metric": "microsoft.storage/storageaccounts/tableservices-Transaction-Transactions",
+            "aggregation": 1,
+            "splitBy": "ResponseType",
+            "splitBySortOrder": -1,
+            "splitByLimit": 5
+          },
+          {
+            "namespace": "microsoft.storage/storageaccounts/fileservices",
+            "metric": "microsoft.storage/storageaccounts/fileservices-Transaction-Transactions",
+            "aggregation": 1,
+            "splitBy": "ResponseType",
+            "splitBySortOrder": -1,
+            "splitByLimit": 5
+          },
+          {
+            "namespace": "microsoft.storage/storageaccounts/queueservices",
+            "metric": "microsoft.storage/storageaccounts/queueservices-Transaction-Transactions",
+            "aggregation": 1,
+            "splitBy": "ResponseType",
+            "splitBySortOrder": -1,
+            "splitByLimit": 5
+          }
+        ],
+        "title": "Failing transactions by Response type",
+        "gridSettings": {
+          "formatters": [
+            {
+              "columnMatch": "Subscription",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Name",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Namespace",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Metric",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Aggregation",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Segment Field",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Segment",
+              "formatter": 5,
+              "formatOptions": {
+                "palette": "blue",
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Value",
+              "formatter": 8,
+              "formatOptions": {
+                "palette": "blue",
+                "showIcon": true,
+                "aggregation": "Sum"
+              },
+              "numberFormat": {
+                "unit": 17,
+                "options": {
+                  "style": "decimal",
+                  "maximumFractionDigits": 1
+                }
+              }
+            },
+            {
+              "columnMatch": "Timeline",
+              "formatter": 9,
+              "formatOptions": {
+                "palette": "blue",
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "$gen_group",
+              "formatter": 0,
+              "formatOptions": {
+                "showIcon": true
+              }
+            }
+          ],
+          "filter": true,
+          "hierarchySettings": {
+            "treeType": 1,
+            "groupBy": [
+              "Namespace"
+            ],
+            "expandTopLevel": true,
+            "finalBy": "Segment"
+          },
+          "labelSettings": []
+        },
+        "gridFormatType": 1,
+        "filters": [
+          {
+            "key": "ResponseType",
+            "operator": 1,
+            "values": [
+              "Success"
+            ]
+          }
+        ]
+      },
+      "customWidth": "50",
+      "showPin": true,
+      "name": "Failing transactions by Response Type"
+    }
+  ],
+  "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/workbook.json"
+}

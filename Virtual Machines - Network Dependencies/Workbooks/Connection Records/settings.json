@@ -1,0 +1,9 @@
+{
+    "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/settings.json",
+    "name":"Connections Records (preview)",
+    "author": "Microsoft",
+    "isPreview": true,
+    "galleries": [
+        { "type": "vm-insights", "resourceType": "Azure Monitor", "order": 300 }
+    ]
+}
