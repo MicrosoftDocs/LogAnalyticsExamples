@@ -1,0 +1,343 @@
+{
+  "version": "Notebook/1.0",
+  "items": [
+    {
+      "type": 9,
+      "content": {
+        "version": "KqlParameterItem/1.0",
+        "query": "",
+        "crossComponentResources": [],
+        "parameters": [
+          {
+            "id": "40fcb136-32f6-4e82-bf81-88e48781a62f",
+            "version": "KqlParameterItem/1.0",
+            "name": "ResourceGroup",
+            "type": 5,
+            "isRequired": true,
+            "value": "value::1",
+            "isHiddenWhenLocked": true,
+            "typeSettings": {
+              "resourceTypeFilter": {
+                "microsoft.resources/resourcegroups": true
+              },
+              "additionalResourceOptions": [
+                "value::1"
+              ]
+            }
+          },
+          {
+            "id": "8f91c041-eceb-4159-903d-fbf0de6ecf69",
+            "version": "KqlParameterItem/1.0",
+            "name": "Resources",
+            "label": "Storage accounts",
+            "type": 5,
+            "isRequired": true,
+            "multiSelect": true,
+            "quote": "'",
+            "delimiter": ",",
+            "query": "where id startswith('{ResourceGroup}') and type =~ 'microsoft.storage/storageaccounts'",
+            "typeSettings": {
+              "resourceTypeFilter": {
+                "microsoft.storage/storageaccounts": true
+              },
+              "additionalResourceOptions": [
+                "value::all"
+              ]
+            },
+            "queryType": 1,
+            "resourceType": "microsoft.resourcegraph/resources",
+            "value": [
+              "value::all"
+            ]
+          },
+          {
+            "id": "2241c21b-5a59-4a42-b3a9-b503de023938",
+            "version": "KqlParameterItem/1.0",
+            "name": "TimeRange",
+            "label": "Time Range",
+            "type": 4,
+            "isRequired": true,
+            "value": {
+              "durationMs": 3600000
+            },
+            "typeSettings": {
+              "selectableValues": [
+                {
+                  "durationMs": 300000
+                },
+                {
+                  "durationMs": 900000
+                },
+                {
+                  "durationMs": 1800000
+                },
+                {
+                  "durationMs": 3600000
+                },
+                {
+                  "durationMs": 14400000
+                },
+                {
+                  "durationMs": 43200000
+                },
+                {
+                  "durationMs": 86400000
+                },
+                {
+                  "durationMs": 172800000
+                },
+                {
+                  "durationMs": 259200000
+                },
+                {
+                  "durationMs": 604800000
+                },
+                {
+                  "durationMs": 1209600000
+                },
+                {
+                  "durationMs": 2592000000
+                }
+              ]
+            }
+          }
+        ],
+        "style": "above",
+        "queryType": 1,
+        "resourceType": "microsoft.resourcegraph/resources"
+      },
+      "name": "parameters - 1"
+    },
+    {
+      "type": 10,
+      "content": {
+        "chartId": "workbookdb19a8d8-91af-44ea-951d-5ffa133b2ebe",
+        "version": "MetricsItem/2.0",
+        "size": 2,
+        "chartType": 0,
+        "resourceIds": [
+          "{Resources}"
+        ],
+        "timeContext": {
+          "durationMs": 0
+        },
+        "timeContextFromParameter": "TimeRange",
+        "resourceType": "microsoft.storage/storageaccounts",
+        "resourceParameter": "Resources",
+        "metrics": [
+          {
+            "namespace": "microsoft.storage/storageaccounts",
+            "metric": "microsoft.storage/storageaccounts-Transaction-Transactions",
+            "aggregation": 1,
+            "splitBy": null
+          },
+          {
+            "namespace": "microsoft.storage/storageaccounts",
+            "metric": "microsoft.storage/storageaccounts-Transaction-Availability",
+            "aggregation": 4
+          },
+          {
+            "namespace": "microsoft.storage/storageaccounts",
+            "metric": "microsoft.storage/storageaccounts-Transaction-SuccessE2ELatency",
+            "aggregation": 4,
+            "columnName": "E2E Latency"
+          },
+          {
+            "namespace": "microsoft.storage/storageaccounts",
+            "metric": "microsoft.storage/storageaccounts-Transaction-SuccessServerLatency",
+            "aggregation": 4,
+            "columnName": "Server Latency"
+          }
+        ],
+        "gridSettings": {
+          "formatters": [
+            {
+              "columnMatch": "Subscription",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Name",
+              "formatter": 13,
+              "formatOptions": {
+                "linkTarget": "Resource",
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "microsoft.storage/storageaccounts-Transaction-Transactions$|Transactions \\(Sum\\)$",
+              "formatter": 8,
+              "formatOptions": {
+                "min": 0,
+                "palette": "blue",
+                "showIcon": true
+              },
+              "numberFormat": {
+                "unit": 17,
+                "options": {
+                  "style": "decimal",
+                  "maximumFractionDigits": 1
+                }
+              }
+            },
+            {
+              "columnMatch": "microsoft.storage/storageaccounts-Transaction-Transactions Timeline|Transactions Timeline",
+              "formatter": 9,
+              "formatOptions": {
+                "min": 0,
+                "palette": "blue",
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "microsoft.storage/storageaccounts-Transaction-Availability$|Availability \\(Average\\)$",
+              "formatter": 18,
+              "formatOptions": {
+                "linkTarget": "WorkbookTemplate",
+                "showIcon": true,
+                "thresholdsOptions": "icons",
+                "thresholdsGrid": [
+                  {
+                    "operator": "is Empty",
+                    "representation": "Blank",
+                    "text": "-"
+                  },
+                  {
+                    "operator": "<",
+                    "thresholdValue": "90",
+                    "representation": "4",
+                    "text": "{0}{1}"
+                  },
+                  {
+                    "operator": "<",
+                    "thresholdValue": "99",
+                    "representation": "2",
+                    "text": "{0}{1}"
+                  },
+                  {
+                    "operator": "Default",
+                    "thresholdValue": null,
+                    "representation": "success",
+                    "text": "{0}{1}"
+                  }
+                ],
+                "workbookContext": {
+                  "componentIdSource": "column",
+                  "componentId": "Name",
+                  "resourceIdsSource": "column",
+                  "resourceIds": "Name",
+                  "templateIdSource": "static",
+                  "templateId": "Community-Workbooks/Individual Storage/Availability",
+                  "typeSource": "static",
+                  "type": "workbook",
+                  "gallerySource": "static",
+                  "gallery": "microsoft.storage/storageaccounts"
+                }
+              },
+              "numberFormat": {
+                "unit": 1,
+                "options": {
+                  "style": "decimal"
+                }
+              }
+            },
+            {
+              "columnMatch": "microsoft.storage/storageaccounts-Transaction-Availability Timeline$|Availability Timeline",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "microsoft.storage/storageaccounts-Transaction-SuccessE2ELatency$|microsoft.storage/storageaccounts-Transaction-SuccessServerLatency$|E2E Latency$|Server Latency$",
+              "formatter": 8,
+              "formatOptions": {
+                "min": 0,
+                "palette": "blue",
+                "linkTarget": "WorkbookTemplate",
+                "showIcon": true,
+                "workbookContext": {
+                  "componentIdSource": "column",
+                  "componentId": "Name",
+                  "resourceIdsSource": "column",
+                  "resourceIds": "Name",
+                  "templateIdSource": "static",
+                  "templateId": "Community-Workbooks/Individual Storage/Performance",
+                  "typeSource": "static",
+                  "type": "workbook",
+                  "gallerySource": "static",
+                  "gallery": "microsoft.storage/storageaccounts"
+                }
+              },
+              "numberFormat": {
+                "unit": 23,
+                "options": {
+                  "style": "decimal",
+                  "maximumFractionDigits": 2
+                }
+              }
+            },
+            {
+              "columnMatch": "microsoft.storage/storageaccounts-Transaction-SuccessE2ELatency Timeline|microsoft.storage/storageaccounts-Transaction-SuccessServerLatency Timeline|Latency Timeline$",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            }
+          ],
+          "filter": true,
+          "sortBy": [
+            {
+              "itemKey": "$gen_heatmap_microsoft.storage/storageaccounts-Transaction-Transactions$|Transactions \\(Sum\\)$_2",
+              "sortOrder": 2
+            }
+          ],
+          "labelSettings": []
+        },
+        "sortBy": [
+          {
+            "itemKey": "$gen_heatmap_microsoft.storage/storageaccounts-Transaction-Transactions$|Transactions \\(Sum\\)$_2",
+            "sortOrder": 2
+          }
+        ],
+        "filters": [],
+        "showExportToExcel": true
+      },
+      "conditionalVisibility": {
+        "parameterName": "Resources",
+        "comparison": "isNotEqualTo",
+        "value": null
+      },
+      "showPin": true,
+      "name": "Resource group storage account metrics"
+    },
+    {
+      "type": 1,
+      "content": {
+        "json": "💡 _Click on the links in the cells to see more details about a storage account_"
+      },
+      "conditionalVisibility": {
+        "parameterName": "Resources",
+        "comparison": "isNotEqualTo",
+        "value": null
+      },
+      "name": "text - 3"
+    },
+    {
+      "type": 1,
+      "content": {
+        "json": "⚠️ Looks like you don't have any storage accounts in this resource group."
+      },
+      "conditionalVisibility": {
+        "parameterName": "Resources",
+        "comparison": "isEqualTo",
+        "value": null
+      },
+      "name": "No resource message"
+    }
+  ],
+  "styleSettings": {},
+  "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/workbook.json"
+}

@@ -1,0 +1,9 @@
+{
+    "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/settings.json",
+    "name":"Kubelet",
+    "author": "Microsoft",
+    "galleries": [
+        { "type": "container-insights", "resourceType": "Microsoft.ContainerService/managedClusters", "order": 300 },
+        { "type": "workbook", "resourceType": "Microsoft.ContainerService/managedClusters", "order": 300 }
+    ]
+}

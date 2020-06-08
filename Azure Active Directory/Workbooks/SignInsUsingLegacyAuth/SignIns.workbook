@@ -1,0 +1,487 @@
+{
+  "version": "Notebook/1.0",
+  "items": [
+    {
+      "type": 1,
+      "content": {
+        "json": "## Sign-ins using Legacy Auth"
+      },
+      "customWidth": "100",
+      "name": "text - 0"
+    },
+    {
+      "type": 9,
+      "content": {
+        "version": "KqlParameterItem/1.0",
+        "parameters": [
+          {
+            "id": "13f56671-7604-4427-a4d8-663f3da0cbc5",
+            "version": "KqlParameterItem/1.0",
+            "name": "TimeRange",
+            "type": 4,
+            "isRequired": true,
+            "value": {
+              "durationMs": 1209600000
+            },
+            "typeSettings": {
+              "selectableValues": [
+                {
+                  "durationMs": 300000,
+                  "createdTime": "2018-11-13T19:33:10.162Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                },
+                {
+                  "durationMs": 900000,
+                  "createdTime": "2018-11-13T19:33:10.164Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                },
+                {
+                  "durationMs": 1800000,
+                  "createdTime": "2018-11-13T19:33:10.164Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                },
+                {
+                  "durationMs": 3600000,
+                  "createdTime": "2018-11-13T19:33:10.164Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                },
+                {
+                  "durationMs": 14400000,
+                  "createdTime": "2018-11-13T19:33:10.164Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                },
+                {
+                  "durationMs": 43200000,
+                  "createdTime": "2018-11-13T19:33:10.164Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                },
+                {
+                  "durationMs": 86400000,
+                  "createdTime": "2018-11-13T19:33:10.165Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                },
+                {
+                  "durationMs": 172800000,
+                  "createdTime": "2018-11-13T19:33:10.166Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                },
+                {
+                  "durationMs": 259200000,
+                  "createdTime": "2018-11-13T19:33:10.166Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                },
+                {
+                  "durationMs": 604800000,
+                  "createdTime": "2018-11-13T19:33:10.166Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                },
+                {
+                  "durationMs": 1209600000,
+                  "createdTime": "2018-11-13T19:33:10.166Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                },
+                {
+                  "durationMs": 2592000000,
+                  "createdTime": "2018-11-13T19:33:10.167Z",
+                  "isInitialTime": false,
+                  "grain": 1,
+                  "useDashboardTimeRange": false
+                }
+              ],
+              "allowCustom": true
+            },
+            "resourceType": "microsoft.insights/components"
+          },
+          {
+            "id": "3b5cc420-8ad8-4523-ba28-a54910756794",
+            "version": "KqlParameterItem/1.0",
+            "name": "Apps",
+            "type": 2,
+            "description": "Provide Application Name",
+            "isRequired": true,
+            "multiSelect": true,
+            "quote": "'",
+            "delimiter": ",",
+            "query": "SigninLogs\r\n| extend ClientAppUsed = iff(isempty(ClientAppUsed)==true,\"Unknown\" ,ClientAppUsed)  \r\n| extend isLegacyAuth = case(ClientAppUsed contains \"Browser\", \"No\", ClientAppUsed contains \"Mobile Apps and Desktop clients\", \"No\", ClientAppUsed contains \"Exchange ActiveSync\", \"No\", ClientAppUsed contains \"Other clients\", \"Yes\", \"Unknown\") \r\n| where isLegacyAuth==\"Yes\"\r\n| summarize Count = count() by AppDisplayName\r\n| order by Count desc, AppDisplayName asc\r\n| project Value = AppDisplayName, Label = strcat(AppDisplayName, ' - ', Count, ' sign-ins'), Selected = false\r\n",
+            "value": [
+              "value::all"
+            ],
+            "typeSettings": {
+              "limitSelectTo": 20,
+              "additionalResourceOptions": [
+                "value::all"
+              ],
+              "selectAllValue": "*"
+            },
+            "timeContext": {
+              "durationMs": 0
+            },
+            "timeContextFromParameter": "TimeRange",
+            "queryType": 0,
+            "resourceType": "microsoft.operationalinsights/workspaces"
+          },
+          {
+            "id": "15200934-c2dd-488b-be37-8b038696deee",
+            "version": "KqlParameterItem/1.0",
+            "name": "Users",
+            "type": 2,
+            "isRequired": true,
+            "multiSelect": true,
+            "quote": "'",
+            "delimiter": ",",
+            "query": "SigninLogs\r\n|where AppDisplayName in ({Apps}) or '*' in ({Apps})\r\n| extend ClientAppUsed = iff(isempty(ClientAppUsed)==true,\"Unknown\" ,ClientAppUsed)  \r\n| extend isLegacyAuth = case(ClientAppUsed contains \"Browser\", \"No\", ClientAppUsed contains \"Mobile Apps and Desktop clients\", \"No\", ClientAppUsed contains \"Exchange ActiveSync\", \"No\", ClientAppUsed contains \"Other clients\", \"Yes\", \"Unknown\") \r\n| where isLegacyAuth==\"Yes\"\r\n| summarize Count = count() by UserDisplayName\r\n| order by Count desc, UserDisplayName asc\r\n| project Value = UserDisplayName, Label = strcat(UserDisplayName, ' - ', Count, ' sign-ins'), Selected = false\r\n",
+            "value": [
+              "value::all"
+            ],
+            "typeSettings": {
+              "limitSelectTo": 20,
+              "additionalResourceOptions": [
+                "value::all"
+              ],
+              "selectAllValue": "*"
+            },
+            "timeContext": {
+              "durationMs": 0
+            },
+            "timeContextFromParameter": "TimeRange",
+            "queryType": 0,
+            "resourceType": "microsoft.operationalinsights/workspaces"
+          },
+          {
+            "id": "2d1aee59-8171-4fc3-954f-19b1e0114f04",
+            "version": "KqlParameterItem/1.0",
+            "name": "Protocols",
+            "type": 2,
+            "isRequired": true,
+            "multiSelect": true,
+            "quote": "'",
+            "delimiter": ",",
+            "query": "SigninLogs\r\n|where AppDisplayName in ({Apps}) or '*' in ({Apps})\r\n| extend ClientAppUsed = iff(isempty(ClientAppUsed)==true,\"Unknown\" ,ClientAppUsed)  \r\n| extend isLegacyAuth = case(ClientAppUsed contains \"Browser\", \"No\", ClientAppUsed contains \"Mobile Apps and Desktop clients\", \"No\", ClientAppUsed contains \"Exchange ActiveSync\", \"No\", ClientAppUsed contains \"Unknown\", \"Unknown\", \"Yes\") \r\n| where isLegacyAuth==\"Yes\"\r\n|extend ClientAppUsed = iff(isempty(ClientAppUsed)==true,\"Unknown\", ClientAppUsed)\r\n| summarize Count = count() by ClientAppUsed\r\n| order by Count desc, ClientAppUsed asc\r\n| project value = ClientAppUsed, label = strcat(ClientAppUsed, ' - ', Count, ' sign ins')\r\n",
+            "value": [
+              "value::all"
+            ],
+            "typeSettings": {
+              "limitSelectTo": 20,
+              "additionalResourceOptions": [
+                "value::all"
+              ],
+              "selectAllValue": "*"
+            },
+            "timeContext": {
+              "durationMs": 0
+            },
+            "timeContextFromParameter": "TimeRange",
+            "queryType": 0,
+            "resourceType": "microsoft.operationalinsights/workspaces"
+          }
+        ],
+        "style": "pills",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces"
+      },
+      "name": "parameters - 1"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "let data = SigninLogs\r\n|where AppDisplayName in ({Apps}) or '*' in ({Apps})\r\n|where UserDisplayName in ({Users}) or '*' in ({Users})\r\n|extend errorCode = toint(Status.errorCode)\r\n|extend SigninStatus = case(errorCode == 0, \"Success\",                       \r\n                            errorCode == 50058, \"Interrupt\",                       \r\n                            errorCode == 50140, \"Interrupt\",                       \r\n                            errorCode == 51006, \"Interrupt\",                       \r\n                            errorCode == 50059, \"Interrupt\",                       \r\n                            errorCode == 65001, \"Interrupt\",                       \r\n                            errorCode == 52004, \"Interrupt\",                       \r\n                            errorCode == 50055, \"Interrupt\",                       \r\n                            errorCode == 50144, \"Interrupt\",                       \r\n                            errorCode == 50072, \"Interrupt\",                       \r\n                            errorCode == 50074, \"Interrupt\",                       \r\n                            errorCode == 16000, \"Interrupt\",                       \r\n                            errorCode == 16001, \"Interrupt\",                       \r\n                            errorCode == 16003, \"Interrupt\",                       \r\n                            errorCode == 50127, \"Interrupt\",                       \r\n                            errorCode == 50125, \"Interrupt\",                       \r\n                            errorCode == 50129, \"Interrupt\",                       \r\n                            errorCode == 50143, \"Interrupt\",                       \r\n                            errorCode == 81010, \"Interrupt\",                       \r\n                            errorCode == 81014, \"Interrupt\",                       \r\n                            errorCode == 81012 ,\"Interrupt\",                       \r\n                            \"Failure\") \r\n|extend Reason = tostring(Status.failureReason)\r\n|extend ClientAppUsed = iff(isempty(ClientAppUsed)==true,\"Unknown\" ,ClientAppUsed)  \r\n| where ClientAppUsed in ({Protocols}) or '*' in ({Protocols}) or  ('Unknown' in ({Protocols}) and isempty(ClientAppUsed))\r\n|extend isLegacyAuth = case(ClientAppUsed contains \"Browser\", \"No\", ClientAppUsed contains \"Mobile Apps and Desktop clients\", \"No\", ClientAppUsed contains \"Exchange ActiveSync\", \"Yes\", ClientAppUsed contains \"Unknown\", \"Unknown\", \"Yes\") \r\n|where isLegacyAuth==\"Yes\";\r\ndata\r\n| summarize Count = count() by SigninStatus\r\n| join kind = inner (data\r\n        | make-series Trend = count() default = 0 on TimeGenerated in range({TimeRange:start}, {TimeRange:end}, {TimeRange:grain}) by SigninStatus) on SigninStatus\r\n| project-away SigninStatus1, TimeGenerated\r\n| union (data\r\n        | summarize Count = count()\r\n        | extend SigninStatus = 'All Sign-ins', jkey = 1\r\n        | join kind = inner (data\r\n                            | make-series Trend = count() default = 0 on TimeGenerated in range({TimeRange:start}, {TimeRange:end}, {TimeRange:grain}) \r\n                            | extend jkey = 1) on jkey\r\n        | project-away jkey, jkey1, TimeGenerated\r\n\r\n)\r\n",
+        "size": 3,
+        "timeContext": {
+          "durationMs": 0
+        },
+        "timeContextFromParameter": "TimeRange",
+        "exportFieldName": "SigninStatus",
+        "exportParameterName": "SigninStatus",
+        "exportDefaultValue": "*",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "visualization": "tiles",
+        "tileSettings": {
+          "titleContent": {
+            "columnMatch": "SigninStatus",
+            "formatter": 1,
+            "formatOptions": {
+              "showIcon": true
+            }
+          },
+          "leftContent": {
+            "columnMatch": "Count",
+            "formatter": 12,
+            "formatOptions": {
+              "min": 0,
+              "palette": "blue",
+              "showIcon": true
+            },
+            "numberFormat": {
+              "unit": 17,
+              "options": {
+                "style": "decimal",
+                "maximumFractionDigits": 2,
+                "maximumSignificantDigits": 3
+              }
+            }
+          },
+          "secondaryContent": {
+            "columnMatch": "Trend",
+            "formatter": 9,
+            "formatOptions": {
+              "min": 0,
+              "palette": "blue",
+              "showIcon": true
+            }
+          },
+          "showBorder": false
+        }
+      },
+      "name": "query - 3"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "let data = SigninLogs\r\n|where AppDisplayName in ({Apps}) or '*' in ({Apps})\r\n|where UserDisplayName in ({Users}) or '*' in ({Users})\r\n|extend errorCode = toint(Status.errorCode)\r\n|extend SigninStatus = case(errorCode == 0, \"Success\",                       \r\n                            errorCode == 50058, \"Interrupt\",                       \r\n                            errorCode == 50140, \"Interrupt\",                       \r\n                            errorCode == 51006, \"Interrupt\",                       \r\n                            errorCode == 50059, \"Interrupt\",                       \r\n                            errorCode == 65001, \"Interrupt\",                       \r\n                            errorCode == 52004, \"Interrupt\",                       \r\n                            errorCode == 50055, \"Interrupt\",                       \r\n                            errorCode == 50144, \"Interrupt\",                       \r\n                            errorCode == 50072, \"Interrupt\",                       \r\n                            errorCode == 50074, \"Interrupt\",                       \r\n                            errorCode == 16000, \"Interrupt\",                       \r\n                            errorCode == 16001, \"Interrupt\",                       \r\n                            errorCode == 16003, \"Interrupt\",                       \r\n                            errorCode == 50127, \"Interrupt\",                       \r\n                            errorCode == 50125, \"Interrupt\",                       \r\n                            errorCode == 50129, \"Interrupt\",                       \r\n                            errorCode == 50143, \"Interrupt\",                       \r\n                            errorCode == 81010, \"Interrupt\",                       \r\n                            errorCode == 81014, \"Interrupt\",                       \r\n                            errorCode == 81012 ,\"Interrupt\",                       \r\n                            \"Failure\") \r\n| where SigninStatus == '{SigninStatus}' or '{SigninStatus}' == '*' or '{SigninStatus}' == 'All Sign-ins'\r\n|extend Reason = tostring(Status.failureReason)\r\n|extend ClientAppUsed = iff(isempty(ClientAppUsed)==true,\"Unknown\" ,ClientAppUsed)  \r\n|extend isLegacyAuth = case(ClientAppUsed contains \"Browser\", \"No\", ClientAppUsed contains \"Mobile Apps and Desktop clients\", \"No\", ClientAppUsed contains \"Exchange ActiveSync\", \"Yes\", ClientAppUsed contains \"Unknown\", \"Unknown\", \"Yes\") \r\n|where isLegacyAuth==\"Yes\"\r\n| where AppDisplayName in ('*') or '*' in ('*');\r\nlet caData = data\r\n| summarize TotalCount = count(), SuccessCount = countif(SigninStatus == \"Success\"), FailureCount = countif(SigninStatus == \"Failure\"), UserInterruptedCount = countif(SigninStatus == \"Interrupted\") by AppDisplayName\r\n| join kind=inner\r\n(\r\n    data\r\n    | make-series Trend = count() default = 0 on TimeGenerated in range({TimeRange:start}, {TimeRange:end}, {TimeRange:grain}) by  AppDisplayName\r\n    | project-away TimeGenerated\r\n)\r\non AppDisplayName\r\n| project AppDisplayName, TotalCount, SuccessCount,FailureCount,UserInterruptedCount,  Trend\r\n| order by TotalCount desc, AppDisplayName asc\r\n| extend Id = AppDisplayName;\r\ndata\r\n| summarize TotalCount = count(), SuccessCount = countif(SigninStatus == \"Success\"), FailureCount = countif(SigninStatus == \"Failure\"), UserInterruptedCount = countif(SigninStatus == \"Interrupted\") by AppDisplayName, ClientAppUsed\r\n| join kind=inner\r\n(\r\n    data    \r\n    | make-series Trend = count() default = 0 on TimeGenerated in range({TimeRange:start}, {TimeRange:end}, {TimeRange:grain}) by AppDisplayName, ClientAppUsed\r\n    | project-away TimeGenerated\r\n)\r\non AppDisplayName, ClientAppUsed\r\n| order by TotalCount desc, AppDisplayName asc\r\n| project AppDisplayName, ClientAppUsed,TotalCount, SuccessCount,FailureCount,UserInterruptedCount,  Trend\r\n| serialize Id = strcat(AppDisplayName, '/', ClientAppUsed)\r\n| join kind=inner\r\n(\r\n    caData\r\n)\r\non AppDisplayName\r\n| project Id, Name = ClientAppUsed , Type = 'Protocol', ['Sign-in Count'] = TotalCount, Trend, ['Failure Count'] = FailureCount, ['User Interrupted Count'] = UserInterruptedCount, ParentId = Id1\r\n| union (caData\r\n| project Id, Name = AppDisplayName, Type = 'App', ['Sign-in Count'] = TotalCount, Trend, ['Failure Count'] = FailureCount, ['User Interrupted Count'] = UserInterruptedCount, ParentId = '')\r\n| order by ['Sign-in Count'] desc, Name asc",
+        "size": 0,
+        "showAnalytics": true,
+        "title": "Legacy Auth Sign-ins by App and Protocol",
+        "timeContext": {
+          "durationMs": 0
+        },
+        "timeContextFromParameter": "TimeRange",
+        "exportParameterName": "SigninDetails",
+        "exportDefaultValue": "{ \"Name\":\"\", \"Type\":\"*\"}",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "gridSettings": {
+          "formatters": [
+            {
+              "columnMatch": "Id",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Type",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Sign-in Count",
+              "formatter": 8,
+              "formatOptions": {
+                "min": 0,
+                "palette": "blue",
+                "showIcon": true
+              },
+              "numberFormat": {
+                "unit": 17,
+                "options": {
+                  "style": "decimal"
+                }
+              }
+            },
+            {
+              "columnMatch": "Trend",
+              "formatter": 9,
+              "formatOptions": {
+                "min": 0,
+                "palette": "blue",
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Failure Count|User Interrupted Count",
+              "formatter": 8,
+              "formatOptions": {
+                "min": 0,
+                "palette": "orange",
+                "showIcon": true
+              },
+              "numberFormat": {
+                "unit": 17,
+                "options": {
+                  "style": "decimal"
+                }
+              }
+            }
+          ],
+          "rowLimit": 100,
+          "filter": true,
+          "hierarchySettings": {
+            "idColumn": "Id",
+            "parentColumn": "ParentId",
+            "treeType": 0,
+            "expanderColumn": "Name",
+            "expandTopLevel": true
+          }
+        }
+      },
+      "customWidth": "67",
+      "showPin": true,
+      "name": "query - 11"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "let details = dynamic({SigninDetails});\r\nlet data = SigninLogs\r\n|where AppDisplayName in ({Apps}) or '*' in ({Apps})\r\n|where UserDisplayName in ({Users}) or '*' in ({Users})\r\n|extend errorCode = toint(Status.errorCode)\r\n|extend SigninStatus = case(errorCode == 0, \"Success\",                       \r\n                            errorCode == 50058, \"Interrupt\",                       \r\n                            errorCode == 50140, \"Interrupt\",                       \r\n                            errorCode == 51006, \"Interrupt\",                       \r\n                            errorCode == 50059, \"Interrupt\",                       \r\n                            errorCode == 65001, \"Interrupt\",                       \r\n                            errorCode == 52004, \"Interrupt\",                       \r\n                            errorCode == 50055, \"Interrupt\",                       \r\n                            errorCode == 50144, \"Interrupt\",                       \r\n                            errorCode == 50072, \"Interrupt\",                       \r\n                            errorCode == 50074, \"Interrupt\",                       \r\n                            errorCode == 16000, \"Interrupt\",                       \r\n                            errorCode == 16001, \"Interrupt\",                       \r\n                            errorCode == 16003, \"Interrupt\",                       \r\n                            errorCode == 50127, \"Interrupt\",                       \r\n                            errorCode == 50125, \"Interrupt\",                       \r\n                            errorCode == 50129, \"Interrupt\",                       \r\n                            errorCode == 50143, \"Interrupt\",                       \r\n                            errorCode == 81010, \"Interrupt\",                       \r\n                            errorCode == 81014, \"Interrupt\",                       \r\n                            errorCode == 81012 ,\"Interrupt\",                       \r\n                            \"Failure\") \r\n|where SigninStatus == '{SigninStatus}' or '{SigninStatus}' == '*' or '{SigninStatus}' == 'All Sign-ins'    \r\n|extend Reason = tostring(Status.failureReason)\r\n|extend ClientAppUsed = iff(isempty(ClientAppUsed)==true,\"Unknown\" ,ClientAppUsed)  \r\n|extend isLegacyAuth = case(ClientAppUsed contains \"Browser\", \"No\", ClientAppUsed contains \"Mobile Apps and Desktop clients\", \"No\", ClientAppUsed contains \"Exchange ActiveSync\", \"Yes\", ClientAppUsed contains \"Unknown\", \"Unknown\", \"Yes\") \r\n|where isLegacyAuth==\"Yes\"\r\n| where AppDisplayName in ('*') or '*' in ('*')\r\n| where details.Type == '*' or (details.Type == 'App' and AppDisplayName == details.Name) or (details.Type == 'Protocol' and AppDisplayName == details.ParentId and ClientAppUsed == details.Name);\r\ndata\r\n| top 200 by TimeGenerated desc\r\n| extend TimeFromNow = now() - TimeGenerated\r\n| extend TimeAgo = strcat(case(TimeFromNow < 2m, strcat(toint(TimeFromNow / 1m), ' seconds'), TimeFromNow < 2h, strcat(toint(TimeFromNow / 1m), ' minutes'), TimeFromNow < 2d, strcat(toint(TimeFromNow / 1h), ' hours'), strcat(toint(TimeFromNow / 1d), ' days')), ' ago')\r\n| project User = UserDisplayName, ['Sign-in Status'] = strcat(iff(SigninStatus == 'Success', '✔️', '❌'), ' ', SigninStatus), ['Sign-in Time'] = TimeAgo, App = AppDisplayName, ['Error code'] = errorCode, ['Result type'] = ResultType, ['Result signature'] = ResultSignature, ['Result description'] = ResultDescription, ['Conditional access policies'] = ConditionalAccessPolicies, ['Conditional access status'] = ConditionalAccessStatus, ['Operating system'] = DeviceDetail.operatingSystem, Browser = DeviceDetail.browser, ['Country or region'] = LocationDetails.countryOrRegion, ['State'] = LocationDetails.state, ['City'] = LocationDetails.city, ['Time generated'] = TimeGenerated, Status, ['User principal name'] = UserPrincipalName\r\n\r\n",
+        "size": 0,
+        "showAnalytics": true,
+        "title": "Legacy Auth Sign-in Details",
+        "timeContext": {
+          "durationMs": 0
+        },
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "gridSettings": {
+          "formatters": [
+            {
+              "columnMatch": "Sign-in Status",
+              "formatter": 7,
+              "formatOptions": {
+                "linkTarget": "CellDetails",
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "App",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Error code",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Result type",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Result signature",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Result description",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Conditional access policies",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Conditional access status",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Operating system",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Browser",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Country or region",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "State",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "City",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Time generated",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "Status",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            },
+            {
+              "columnMatch": "User principal name",
+              "formatter": 5,
+              "formatOptions": {
+                "showIcon": true
+              }
+            }
+          ],
+          "rowLimit": 200,
+          "filter": true
+        }
+      },
+      "customWidth": "33",
+      "name": "query - 11 - Copy"
+    }
+  ],
+  "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/workbook.json"
+}
